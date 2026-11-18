@@ -1,0 +1,110 @@
+<div class="container-fluid mb-4">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <div class="card">
+                <h3 class="bg-success text-center p-2">Product Info</h3>
+                <div class="card-body">
+                    <h3 class=""><strong>{{isInEditMode ? 'Update Product' : 'Add Product'}}</strong></h3>
+                    <div class="form-group">
+                        <label for="name">Product Name</label>
+                        <input type="text" class="form-control" #name>
+
+                        <label for="category">Product Category</label>
+                        <select class="form-control" #category>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Accessories">Accessories</option>
+                            <option value="Home Appliances">Home Appliances</option>
+                        </select>
+
+                        <label for="description">Product Description</label>
+                        <textarea type="text" rows="3" class="form-control" #description></textarea>
+
+                        <label for="price">Product Price</label>
+                        <input type="number" class="form-control" #price>
+
+                        <label for="quantity">Product Quantity</label>
+                        <input type="number" class="form-control" #quantity>
+
+                        <label for="brand">Product Brand</label>
+                        <input type="text" class="form-control" #brand>
+
+                        <label for="isAvailable">Product Avaliable Status</label>
+                        <select class="form-control"  #isAvailable>
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+
+                        <label for="image">Product Image</label>
+                        <input type="url" class="form-control" #image>
+
+                        <button 
+                        (click)="onProAdd()"
+                        *ngIf="!isInEditMode"
+                        mat-raised-button class="w-100 mt-4" color="primary">Add Product</button>
+                        <button 
+                        (click)="onProUpdate()"
+                        *ngIf="isInEditMode"
+                        mat-raised-button class="w-100 mt-4" color="accent">Update Product</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="bg-success text-center p-2">Products List</h3>
+<div class="container-fluid mt-4">
+    <div class="row" *ngIf="productArr.length > 0 ;else noPro">
+        <div class="col-md-4 mt-4 imgFix" *ngFor="let pro of productArr">
+            <mat-card class="card h-100 flex-container">
+                <mat-card-header>
+                    <h4>Name : <strong class="text-warning">{{pro.name}}</strong>
+                    <h5>Brand : <strong class="text-info">{{pro.brand}}</strong></h5>
+                        
+
+                    </h4>
+
+                    <br>
+                    <h4>Category : <strong class="text-success">{{pro.category}}</strong>
+                        <h5>Quantity : <strong class="text-warning">{{pro.quantity}}</strong></h5>
+                    
+                    </h4>
+                    
+                </mat-card-header>
+                <mat-card-content class="d-flex flex-column flex-grow-1">
+                    <img [src]="pro.image" [alt]="pro.name" [title]="pro.name">
+
+                    <h3>Description : <strong class="text-warning">{{pro.description}}</strong></h3>
+                    <h3>Price : <strong class="text-primary">{{pro.price}}</strong></h3>
+                    <h1>Is Available : <strong class="badge"
+                        [ngClass]="{
+                            'badge-success' : pro.isAvailable,
+                            'badge-danger' : !pro.isAvailable
+                        }"
+                        >{{pro.isAvailable ? 'Available' : 'Out Of Stock'}}</strong></h1>
+
+                </mat-card-content>
+                
+                <mat-divider></mat-divider>
+                    <mat-card-actions class="d-flex justify-content-between align-items-center">
+                        <button 
+                        (click)="onProEdit(pro)"
+                        mat-mini-fab color="primary">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button 
+                        (click)="onProDelete(pro.id)"
+                        mat-mini-fab>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                
+            </mat-card>
+        </div>
+    </div>
+
+</div>
+<ng-template #noPro>
+    <p class="alert alert-warning">No Product Added Yet</p>
+</ng-template>

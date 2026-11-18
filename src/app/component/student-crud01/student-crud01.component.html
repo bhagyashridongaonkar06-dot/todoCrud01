@@ -1,0 +1,86 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <h3 class="bg-danger p-2 text-center">Student Form</h3>
+                <div class="card-body">
+                    <h3 class="ml-0"><strong>{{isInEditMode ? 'Update Student' : 'AddStudent'}}</strong></h3>
+                    <div class="form-group">
+                        <label for="fname">Enter First Name*</label>
+                        <input type="text" class="form-control" #fname>
+
+                        <label for="lname">Enter Last Name*</label>
+                        <input type="text" class="form-control" #lname>
+
+                        <label for="email">Enter Email*</label>
+                        <input type="email" class="form-control" #email>
+
+                        <label for="contact">Enter Contact*</label>
+                        <input type="number" class="form-control" #contact>
+
+                        <label for="city">Enter City*</label>
+                        <select class="form-control" #city>
+                            <option value="">--cities--</option>
+                            <option value="Pune">Pune</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Nashik">Nashik</option>
+                            <option value="Nagpur">Nagpur</option>
+                            <option value="Kolhapur">Kolhapur</option>
+                        </select>
+
+                        <button (click)="onAddStd()" *ngIf="!isInEditMode" mat-raised-button class="w-100 mt-3"
+                            color="primary">Add Student</button>
+                        <button *ngIf="isInEditMode" (click)="onUpdateStd()" mat-raised-button class="w-100 mt-3"
+                            color="warn">Update Student</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-8">
+            <div class="card pb-0"  *ngIf="studentArr.length > 0 ; else noStd">
+                <h3 class="bg-danger p-2  mb-0 text-center">Student List</h3>
+                <div class="card-body mt-0 pt-0 scrollbar">
+                    <table class="table table-bordered">
+                        <thead class="bg-dark text-white forfix">
+
+                            <tr class="mt-0">
+                                <th>SrNo</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>City</th>
+                                <th>Edit</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let std of studentArr; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{std.fname}}</td>
+                                <td>{{std.lname}}</td>
+                                <td>{{std.email}}</td>
+                                <td>{{std.contact}}</td>
+                                <td>{{std.city}}</td>
+                                <td><button (click)="onEditStd(std)" mat-mini-fab
+                                        color="primary"><mat-icon>edit</mat-icon></button></td>
+                                <td><button (click)="onDeleteStd(std.id)" mat-mini-fab
+                                        color="accent"><mat-icon>delete</mat-icon></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-template #noStd>
+    <p class="alert alert-danger">
+        No Student added Yet
+    </p>
+</ng-template>

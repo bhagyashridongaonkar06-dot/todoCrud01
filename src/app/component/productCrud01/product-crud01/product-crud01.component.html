@@ -75,9 +75,9 @@
                 <mat-card-content class="d-flex flex-column flex-grow-1">
                     <img [src]="pro.image" [alt]="pro.name" [title]="pro.name">
 
-                    <h3>Description : <strong class="text-warning">{{pro.description}}</strong></h3>
-                    <h3>Price : <strong class="text-primary">{{pro.price}}</strong></h3>
-                    <h1>Is Available : <strong class="badge"
+                    <h3 class="scroll">Description : <strong class="text-warning">{{pro.description}}</strong></h3>
+                    <h3 class="scroll">Price : <strong class="text-primary">{{pro.price}}</strong></h3>
+                    <h1 class="scroll">Is Available : <strong class="badge"
                         [ngClass]="{
                             'badge-success' : pro.isAvailable,
                             'badge-danger' : !pro.isAvailable
